@@ -13,7 +13,7 @@
 
   <itemDefinition id="_2-xItem" structureRef="String"/>
 
-  <process processType="Private" isExecutable="true" id="SubProcess" name="Minimal SubProcess">
+  <process processType="Private" isExecutable="true" id="example-2" name="Minimal SubProcess">
 
     <!-- nodes -->
     <startEvent id="_1" name="StartProcess"/>

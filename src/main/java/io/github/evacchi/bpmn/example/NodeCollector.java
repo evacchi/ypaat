@@ -1,30 +1,28 @@
 package io.github.evacchi.bpmn.example;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
 import io.github.evacchi.bpmn.BaseVisitor;
-import io.github.evacchi.bpmn.TDefinitions;
 import io.github.evacchi.bpmn.TEndEvent;
 import io.github.evacchi.bpmn.TFlowElement;
-import io.github.evacchi.bpmn.TProcess;
 import io.github.evacchi.bpmn.TScriptTask;
 import io.github.evacchi.bpmn.TSequenceFlow;
 import io.github.evacchi.bpmn.TStartEvent;
 import io.github.evacchi.bpmn.TSubProcess;
+import io.github.evacchi.bpmn.graph.EndEventNode;
+import io.github.evacchi.bpmn.graph.GraphBuilder;
+import io.github.evacchi.bpmn.graph.ScriptTaskNode;
+import io.github.evacchi.bpmn.graph.StartEventNode;
+import io.github.evacchi.bpmn.graph.SubProcessNode;
 
 public class NodeCollector extends BaseVisitor<Void, RuntimeException> {
 
-    final List<Node<?>> nodes;
+    final GraphBuilder nodes;
 
-    public NodeCollector() {
-        nodes = new ArrayList<>();
-    }
-
-    public List<Node<?>> nodes() {
-        return nodes;
+    public NodeCollector(GraphBuilder graphBuilder) {
+        nodes = graphBuilder;
     }
 
     public void visitFlowElements(List<JAXBElement<? extends TFlowElement>> flowElement) {
@@ -33,22 +31,22 @@ public class NodeCollector extends BaseVisitor<Void, RuntimeException> {
 
     public Void visit(TSubProcess p) {
         GraphBuilder result = new ProcessVisitor().subProcess(p);
-        nodes.add(new SubGraph(p.getId(), result));
+        nodes.add(new SubProcessNode(p.getId(), result));
         return null;
     }
 
     public Void visit(TStartEvent evt) {
-        nodes.add(new FlowNode(evt.getId(), evt));
+        nodes.add(new StartEventNode(evt.getId(), evt));
         return null;
     }
 
     public Void visit(TEndEvent evt) {
-        nodes.add(new FlowNode(evt.getId(), evt));
+        nodes.add(new EndEventNode(evt.getId(), evt));
         return null;
     }
 
     public Void visit(TScriptTask task) {
-        nodes.add(new FlowNode(task.getId(), task));
+        nodes.add(new ScriptTaskNode(task.getId(), task));
         return null;
     }
 

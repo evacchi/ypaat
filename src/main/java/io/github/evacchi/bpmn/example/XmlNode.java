@@ -4,6 +4,7 @@ import io.github.evacchi.bpmn.TEndEvent;
 import io.github.evacchi.bpmn.TFlowElement;
 import io.github.evacchi.bpmn.TScriptTask;
 import io.github.evacchi.bpmn.TStartEvent;
+import io.github.evacchi.bpmn.graph.FlowNode;
 
 public class XmlNode {
 

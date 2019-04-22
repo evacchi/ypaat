@@ -1,0 +1,18 @@
+<bindings xmlns="http://java.sun.com/xml/ns/jaxb"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance"
+          xsi:schemaLocation=" http://java.sun.com/xml/ns/jaxb
+                           http://java.sun.com/xml/ns/jaxb/bindingschema_2_0.xsd"
+          version="2.1">
+
+<!--  <bindings schemaLocation="SomeSchemaName.xsd" node="/xs:schema">-->
+<!--    <bindings node="//xs:attribute[@name='targetRef']">-->
+<!--      <property>-->
+<!--        <baseType>-->
+<!--          <javaType name="java.lang.String"></javaType>-->
+<!--        </baseType>-->
+<!--      </property>-->
+<!--    </bindings>-->
+<!--  </bindings>-->
+
+</bindings>

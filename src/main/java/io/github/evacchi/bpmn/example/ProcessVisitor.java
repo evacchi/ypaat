@@ -15,7 +15,8 @@ public class ProcessVisitor {
 
     public GraphBuilder process(TDefinitions tdefs) {
         TProcess tProcess = findRootProcess(tdefs);
-        return process(tProcess);
+        GraphBuilder graphBuilder = process(tProcess);
+        return graphBuilder;
     }
 
     private TProcess findRootProcess(TDefinitions tdefs) {
@@ -35,13 +36,12 @@ public class ProcessVisitor {
     }
 
     private GraphBuilder process(String name, Supplier<List<JAXBElement<? extends TFlowElement>>> elementSupplier) {
-        // create graph structure
+        List<JAXBElement<? extends TFlowElement>> elements = elementSupplier.get();
         GraphBuilder graphBuilder = new GraphBuilder(name);
         NodeCollector nodeCollector = new NodeCollector(graphBuilder);
-        nodeCollector.visitFlowElements(elementSupplier.get());
+        nodeCollector.visitFlowElements(elements);
         EdgeCollector edgeCollector = new EdgeCollector(graphBuilder);
-        edgeCollector.visitFlowElements(elementSupplier.get());
-
+        edgeCollector.visitFlowElements(elements);
         return edgeCollector.graphBuilder();
     }
 }

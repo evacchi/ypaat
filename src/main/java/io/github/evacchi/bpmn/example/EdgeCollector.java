@@ -20,7 +20,7 @@ public class EdgeCollector extends BaseVisitor<Void, RuntimeException> {
     public Void visit(TSequenceFlow seq) {
         TFlowElement left = (TFlowElement) seq.getSourceRef();
         TFlowElement right = (TFlowElement) seq.getTargetRef();
-        graphBuilder.addEdge(left.getId(), right.getId());
+        graphBuilder.addEdge(seq.getId(), seq, left.getId(), right.getId());
         return null;
     }
 

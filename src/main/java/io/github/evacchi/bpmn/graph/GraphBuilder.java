@@ -3,13 +3,13 @@ package io.github.evacchi.bpmn.graph;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import io.github.evacchi.bpmn.TSequenceFlow;
 import io.github.evacchi.bpmn.TStartEvent;
-import io.github.evacchi.bpmn.engine.EngineGraph;
+import io.github.evacchi.bpmn.graph.bpmn.StartEventNode;
 
 public class GraphBuilder {
 
@@ -30,13 +30,17 @@ public class GraphBuilder {
         }
     }
 
-    public void addEdge(String leftId, String rightId) {
-        edges.add(new Edge(nodes.get(leftId), nodes.get(rightId)));
+    public void addEdge(String id, TSequenceFlow seq, String leftId, String rightId) {
+        edges.add(new Edge(id, seq, nodes.get(leftId), nodes.get(rightId)));
     }
 
     @Override
     public String toString() {
         return String.format("GraphBuilder(nodes=%s, edges=%s)", nodes, edges);
+    }
+
+    public Node<?> node(String id) {
+        return nodes.get(id);
     }
 
     public Collection<? extends Node<?>> nodes() {

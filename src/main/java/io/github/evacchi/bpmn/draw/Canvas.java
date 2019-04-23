@@ -1,21 +1,24 @@
-package io.github.evacchi.bpmn.engine;
+package io.github.evacchi.bpmn.draw;
 
-import io.github.evacchi.bpmn.graph.bpmn.EndEventNode;
+import io.github.evacchi.bpmn.engine.EngineGraph;
 import io.github.evacchi.bpmn.graph.GraphVisitor;
 import io.github.evacchi.bpmn.graph.Node;
+import io.github.evacchi.bpmn.graph.bpmn.EndEventNode;
 import io.github.evacchi.bpmn.graph.bpmn.ScriptTaskNode;
 import io.github.evacchi.bpmn.graph.bpmn.StartEventNode;
 import io.github.evacchi.bpmn.graph.bpmn.SubProcessNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Engine implements GraphVisitor {
+public class Canvas implements GraphVisitor {
 
-    private static final Logger logger = LoggerFactory.getLogger(Engine.class);
+    private static final Logger logger = LoggerFactory.getLogger(Canvas.class);
     private final EngineGraph graph;
+    private final LayoutIndex index;
 
-    public Engine(EngineGraph graph) {
+    public Canvas(EngineGraph graph, LayoutIndex index) {
         this.graph = graph;
+        this.index = index;
     }
 
     public void eval() {
@@ -24,34 +27,35 @@ public class Engine implements GraphVisitor {
 
     @Override
     public void visit(StartEventNode node) {
-        logger.info("Process '{}' started.", graph.name());
+        draw(node);
         graph.outgoing(node).forEach(this::visit);
     }
 
     @Override
     public void visit(EndEventNode node) {
-        logger.info("Process ended.");
+        draw(node);
         // no outgoing edges
     }
 
     @Override
     public void visit(ScriptTaskNode node) {
-        logger.info("Evaluating script task: {}",
-                    node.element().getScript().getContent());
+        draw(node);
         graph.outgoing(node).forEach(this::visit);
     }
 
     @Override
     public void visit(SubProcessNode node) {
-        Engine nestedEngine = new Engine(node.element());
-        logger.info("Evaluate SubProcess '{}'", node.element().name());
+        Canvas nestedEngine = new Canvas(node.element(), index);
         nestedEngine.eval();
-        logger.info("SubProcess Ended");
         graph.outgoing(node).forEach(this::visit);
     }
 
     public void visit(Node<?> node) {
-        logger.info("Visiting node {}", node.id());
         node.accept(this);
+    }
+
+    private void draw(Node<?> node) {
+        Bounds shape = index.shape(node.id());
+        logger.info("Draw node {} at ({},{}) size {}×{}", node.id(), shape.x, shape.y, shape.width, shape.height);
     }
 }

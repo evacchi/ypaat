@@ -9,7 +9,7 @@ import java.util.Map;
 
 import io.github.evacchi.bpmn.graph.GraphBuilder;
 import io.github.evacchi.bpmn.graph.Node;
-import io.github.evacchi.bpmn.graph.StartEventNode;
+import io.github.evacchi.bpmn.graph.bpmn.StartEventNode;
 
 public class EngineGraph {
 

@@ -24,6 +24,9 @@ public class Main {
         EngineGraph result = EngineGraph.of(graphBuilder);
         Engine engine = new Engine(result);
         engine.eval();
+
+        LayoutProcessor layout = new LayoutProcessor();
+        layout.process(tdefs, graphBuilder);
     }
 }
 

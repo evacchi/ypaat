@@ -11,12 +11,12 @@ import io.github.evacchi.bpmn.TScriptTask;
 import io.github.evacchi.bpmn.TSequenceFlow;
 import io.github.evacchi.bpmn.TStartEvent;
 import io.github.evacchi.bpmn.TSubProcess;
-import io.github.evacchi.bpmn.graph.EndEventNode;
+import io.github.evacchi.bpmn.graph.bpmn.EndEventNode;
 import io.github.evacchi.bpmn.engine.EngineGraph;
 import io.github.evacchi.bpmn.graph.GraphBuilder;
-import io.github.evacchi.bpmn.graph.ScriptTaskNode;
-import io.github.evacchi.bpmn.graph.StartEventNode;
-import io.github.evacchi.bpmn.graph.SubProcessNode;
+import io.github.evacchi.bpmn.graph.bpmn.ScriptTaskNode;
+import io.github.evacchi.bpmn.graph.bpmn.StartEventNode;
+import io.github.evacchi.bpmn.graph.bpmn.SubProcessNode;
 
 public class NodeCollector extends BaseVisitor<Void, RuntimeException> {
 

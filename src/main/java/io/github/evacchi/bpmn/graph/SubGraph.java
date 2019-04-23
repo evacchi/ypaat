@@ -1,8 +1,10 @@
 package io.github.evacchi.bpmn.graph;
 
-public class SubGraph extends Node<GraphBuilder> {
+import io.github.evacchi.bpmn.engine.EngineGraph;
 
-    public SubGraph(String id, GraphBuilder el) {
+public class SubGraph extends Node<EngineGraph> {
+
+    public SubGraph(String id, EngineGraph el) {
         super(id, el);
     }
 }

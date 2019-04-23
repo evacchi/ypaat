@@ -3,12 +3,13 @@ package io.github.evacchi.bpmn.graph;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import io.github.evacchi.bpmn.TFlowElement;
 import io.github.evacchi.bpmn.TStartEvent;
+import io.github.evacchi.bpmn.engine.EngineGraph;
 
 public class GraphBuilder {
 
@@ -17,6 +18,10 @@ public class GraphBuilder {
 
     private String name;
     private StartEventNode start;
+
+    public GraphBuilder(String name) {
+        this.name = name;
+    }
 
     public void add(Node<?> node) {
         nodes.put(node.id(), node);
@@ -38,24 +43,15 @@ public class GraphBuilder {
         return nodes.values();
     }
 
-    public Stream<Node<?>> outgoing(TFlowElement el) {
-        return edges.stream().filter(e -> e.left().element() == el).map(e -> e.right());
-    }
-
-    public Stream<Node<?>> outgoing(Node<?> node) {
-        return edges.stream().filter(e -> e.left() == node).map(Edge::right);
-    }
-
     public StartEventNode start() {
         return start;
     }
 
-    public GraphBuilder withName(String name) {
-        this.name = name;
-        return this;
-    }
-
     public String name() {
         return name;
+    }
+
+    public Stream<Node<?>> outgoing(Node<?> node) {
+        return edges.stream().filter(e -> e.left() == node).map(Edge::right);
     }
 }

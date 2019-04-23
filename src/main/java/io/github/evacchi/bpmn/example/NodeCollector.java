@@ -12,6 +12,7 @@ import io.github.evacchi.bpmn.TSequenceFlow;
 import io.github.evacchi.bpmn.TStartEvent;
 import io.github.evacchi.bpmn.TSubProcess;
 import io.github.evacchi.bpmn.graph.EndEventNode;
+import io.github.evacchi.bpmn.engine.EngineGraph;
 import io.github.evacchi.bpmn.graph.GraphBuilder;
 import io.github.evacchi.bpmn.graph.ScriptTaskNode;
 import io.github.evacchi.bpmn.graph.StartEventNode;
@@ -30,7 +31,8 @@ public class NodeCollector extends BaseVisitor<Void, RuntimeException> {
     }
 
     public Void visit(TSubProcess p) {
-        GraphBuilder result = new ProcessVisitor().subProcess(p);
+        GraphBuilder graphBuilder = new ProcessVisitor().subProcess(p);
+        EngineGraph result = EngineGraph.of(graphBuilder);
         nodes.add(new SubProcessNode(p.getId(), result));
         return null;
     }

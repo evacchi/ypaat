@@ -27,15 +27,16 @@ public class ProcessVisitor {
     }
 
     public GraphBuilder process(TProcess root) {
-        return process(root::getFlowElement).withName(root.getName());
+        return process(root.getName(), root::getFlowElement);
     }
 
     public GraphBuilder subProcess(TSubProcess root) {
-        return process(root::getFlowElement).withName(root.getName());
+        return process(root.getName(), root::getFlowElement);
     }
 
-    public GraphBuilder process(Supplier<List<JAXBElement<? extends TFlowElement>>> elementSupplier) {
-        GraphBuilder graphBuilder = new GraphBuilder();
+    private GraphBuilder process(String name, Supplier<List<JAXBElement<? extends TFlowElement>>> elementSupplier) {
+        // create graph structure
+        GraphBuilder graphBuilder = new GraphBuilder(name);
         NodeCollector nodeCollector = new NodeCollector(graphBuilder);
         nodeCollector.visitFlowElements(elementSupplier.get());
         EdgeCollector edgeCollector = new EdgeCollector(graphBuilder);

@@ -4,6 +4,7 @@ import javax.xml.bind.JAXB;
 
 import io.github.evacchi.bpmn.TDefinitions;
 import io.github.evacchi.bpmn.engine.Engine;
+import io.github.evacchi.bpmn.engine.EngineGraph;
 import io.github.evacchi.bpmn.graph.GraphBuilder;
 
 public class Main {
@@ -18,12 +19,11 @@ public class Main {
 //                Main.class.getResourceAsStream("/helloWorld.bpmn"),
                 TDefinitions.class);
 
-        GraphBuilder result = new ProcessVisitor().process(tdefs);
-
+        GraphBuilder graphBuilder =
+                new ProcessVisitor().process(tdefs);
+        EngineGraph result = EngineGraph.of(graphBuilder);
         Engine engine = new Engine(result);
         engine.eval();
-
     }
-
 }
 

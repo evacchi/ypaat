@@ -1,7 +1,6 @@
 package io.github.evacchi.bpmn.engine;
 
 import io.github.evacchi.bpmn.graph.EndEventNode;
-import io.github.evacchi.bpmn.graph.GraphBuilder;
 import io.github.evacchi.bpmn.graph.GraphVisitor;
 import io.github.evacchi.bpmn.graph.Node;
 import io.github.evacchi.bpmn.graph.ScriptTaskNode;
@@ -13,9 +12,9 @@ import org.slf4j.LoggerFactory;
 public class Engine implements GraphVisitor {
 
     private static final Logger logger = LoggerFactory.getLogger(Engine.class);
-    private final GraphBuilder graph;
+    private final EngineGraph graph;
 
-    public Engine(GraphBuilder graph) {
+    public Engine(EngineGraph graph) {
         this.graph = graph;
     }
 
@@ -32,7 +31,7 @@ public class Engine implements GraphVisitor {
     @Override
     public void visit(EndEventNode node) {
         logger.info("Process ended.");
-        graph.outgoing(node).forEach(this::visit);
+        // no outgoing edges
     }
 
     @Override

@@ -6,24 +6,44 @@
              xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
-             xmlns:tns="http://www.jboss.org/drools">
+             xmlns:tns="http://www.jboss.org/drools"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+>
 
   <process id="Minimal" name="Minimal Process" tns:packageName="com.sample">
-    <startEvent id="_1" name="StartProcess"/>
-    <sequenceFlow sourceRef="_1" targetRef="_2"/>
+    <startEvent id="_1" name="Start"/>
+    <sequenceFlow id="_1-_2" sourceRef="_1" targetRef="_2"/>
     <scriptTask id="_2" name="Hello">
       <script>System.out.println("Hello World");</script>
     </scriptTask>
-    <sequenceFlow sourceRef="_2" targetRef="_3">
-      <extensionElements>
-        <tns:metaData name="elementname">
-          <tns:metaValue><![CDATA[connection
-                name]]></tns:metaValue>
-        </tns:metaData>
-      </extensionElements>
+    <sequenceFlow id="_2-_3" sourceRef="_2" targetRef="_3">
     </sequenceFlow>
-    <endEvent id="_3" name="EndProcess">
+    <endEvent id="_3" name="End">
       <terminateEventDefinition/>
     </endEvent>
   </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="SubProcess">
+      <bpmndi:BPMNShape bpmnElement="_1">
+        <dc:Bounds x="11" y="30" width="48" height="48"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_2">
+        <dc:Bounds x="193" y="30" width="80" height="48"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_3">
+        <dc:Bounds x="396" y="30" width="48" height="48"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_1-_2">
+        <di:waypoint x="35" y="50"/>
+        <di:waypoint x="229" y="50"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_2-_3">
+        <di:waypoint x="229" y="50"/>
+        <di:waypoint x="441" y="50"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
 </definitions>

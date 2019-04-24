@@ -162,7 +162,7 @@ public class Canvas implements GraphVisitor {
         EngineGraph element = node.element();
         graphics2D.drawString(element.name(), shape.x + 5, shape.y - 5);
 
-        Canvas nestedEngine = new Canvas(node.element(), index, bufferedImage, shape);
+        Canvas nestedEngine = new Canvas(node.element(), index, bufferedImage, bounds);
         nestedEngine.eval();
     }
 

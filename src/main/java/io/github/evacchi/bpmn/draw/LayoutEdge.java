@@ -13,9 +13,14 @@ public class LayoutEdge {
             this.x = x;
             this.y = y;
         }
+
+        @Override
+        public String toString() {
+            return String.format("(%.2f, %.2f)", x, y);
+        }
     }
 
-    final List<Waypoint> points;
+    private final List<Waypoint> points;
 
     public LayoutEdge(Waypoint... points) {
         this.points = Arrays.asList(points);
@@ -23,5 +28,9 @@ public class LayoutEdge {
 
     public LayoutEdge(List<Waypoint> points) {
         this.points = points;
+    }
+
+    public List<Waypoint> points() {
+        return points;
     }
 }

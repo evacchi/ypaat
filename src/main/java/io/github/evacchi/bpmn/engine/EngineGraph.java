@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import io.github.evacchi.bpmn.graph.Edge;
 import io.github.evacchi.bpmn.graph.GraphBuilder;
 import io.github.evacchi.bpmn.graph.Node;
 import io.github.evacchi.bpmn.graph.bpmn.StartEventNode;
@@ -15,7 +16,9 @@ public class EngineGraph {
 
     private final String name;
     private final StartEventNode start;
-    private final Map<Node<?>, Collection<Node<?>>> edges;
+    private final Map<Node<?>, Collection<Node<?>>> outgoingEdges;
+    private final Collection<? extends Node<?>> nodes;
+    private final Collection<Edge> edges;
 
     public static EngineGraph of(GraphBuilder graphBuilder) {
         Map<Node<?>, Collection<Node<?>>> outgoingEdges = new HashMap<>();
@@ -35,17 +38,27 @@ public class EngineGraph {
         return new EngineGraph(
                 graphBuilder.name(),
                 graphBuilder.start(),
-                outgoingEdges);
+                outgoingEdges,
+                graphBuilder.nodes(),
+                graphBuilder.edges()
+        );
     }
 
-    public EngineGraph(String name, StartEventNode start, Map<Node<?>, Collection<Node<?>>> outgoingEdges) {
+    public EngineGraph(
+            String name,
+            StartEventNode start,
+            Map<Node<?>, Collection<Node<?>>> outgoingEdges,
+            Collection<? extends Node<?>> nodes,
+            Collection<Edge> edges) {
         this.name = name;
         this.start = start;
-        this.edges = outgoingEdges;
+        this.outgoingEdges = outgoingEdges;
+        this.nodes = nodes;
+        this.edges = edges;
     }
 
     public Collection<Node<?>> outgoing(Node<?> node) {
-        return edges.get(node);
+        return outgoingEdges.get(node);
     }
 
     public StartEventNode start() {
@@ -54,5 +67,13 @@ public class EngineGraph {
 
     public String name() {
         return name;
+    }
+
+    public Collection<? extends Node<?>> nodes() {
+        return nodes;
+    }
+
+    public Collection<Edge> edges() {
+        return edges;
     }
 }

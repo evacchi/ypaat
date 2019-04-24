@@ -2,6 +2,7 @@ package io.github.evacchi.bpmn.graph;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,5 +58,9 @@ public class GraphBuilder {
 
     public Stream<Node<?>> outgoing(Node<?> node) {
         return edges.stream().filter(e -> e.left() == node).map(Edge::right);
+    }
+
+    public Collection<Edge> edges() {
+        return Collections.unmodifiableCollection(edges);
     }
 }

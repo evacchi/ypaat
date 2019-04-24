@@ -15,17 +15,18 @@ public class LayoutIndex {
 
     void put(String id, BPMNShape shape) {
         io.github.evacchi.bpmn.Bounds bounds = shape.getBounds();
+        // renderer has only int precision
         shapes.put(id, new Bounds(
-                bounds.getX(),
-                bounds.getY(),
-                bounds.getWidth(),
-                bounds.getHeight()
+                (int) bounds.getX(),
+                (int) bounds.getY(),
+                (int) bounds.getWidth(),
+                (int) bounds.getHeight()
         ));
     }
 
     void put(String id, BPMNEdge edge) {
         List<LayoutEdge.Waypoint> pts = edge.getWaypoint().stream()
-                .map(p -> new LayoutEdge.Waypoint(p.getX(), p.getY()))
+                .map(p -> new LayoutEdge.Waypoint((int) p.getX(), (int) p.getY()))
                 .collect(Collectors.toList());
         edges.put(id, new LayoutEdge(pts));
     }

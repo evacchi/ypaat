@@ -7,16 +7,16 @@ public class LayoutEdge {
 
     public static class Waypoint {
 
-        final double x, y;
+        final int x, y;
 
-        public Waypoint(double x, double y) {
+        public Waypoint(int x, int y) {
             this.x = x;
             this.y = y;
         }
 
         @Override
         public String toString() {
-            return String.format("(%.2f, %.2f)", x, y);
+            return String.format("(%d, %d)", x, y);
         }
     }
 

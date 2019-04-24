@@ -1,7 +1,6 @@
-package io.github.evacchi.bpmn.graph.bpmn;
+package io.github.evacchi.bpmn.graph.nodes;
 
 import io.github.evacchi.bpmn.TEndEvent;
-import io.github.evacchi.bpmn.graph.FlowNode;
 import io.github.evacchi.bpmn.graph.GraphVisitor;
 
 public class EndEventNode extends FlowNode<TEndEvent> {

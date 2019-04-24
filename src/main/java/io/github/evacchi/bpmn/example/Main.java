@@ -1,32 +1,31 @@
 package io.github.evacchi.bpmn.example;
 
-import javax.xml.bind.JAXB;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
-import io.github.evacchi.bpmn.TDefinitions;
+import javax.imageio.ImageIO;
+
+import io.github.evacchi.bpmn.Bpmn;
 import io.github.evacchi.bpmn.engine.Engine;
-import io.github.evacchi.bpmn.engine.EngineGraph;
-import io.github.evacchi.bpmn.graph.GraphBuilder;
 
 public class Main {
 
-    public static void main(String[] args) {
-        new Main().main();
-    }
+    public static void main(String[] args) throws IOException {
 
-    public void main() {
-        TDefinitions tdefs = JAXB.unmarshal(
-                Main.class.getResourceAsStream("/BPMN2-SubProcess.bpmn2"),
-//                Main.class.getResourceAsStream("/helloWorld.bpmn"),
-                TDefinitions.class);
+        InputStream resource =
+                Main.class.getResourceAsStream(
+                        "/BPMN2-SubProcess.bpmn2"
+//                        "/helloWorld.bpmn"
+                );
 
-        GraphBuilder graphBuilder =
-                new ProcessVisitor().process(tdefs);
-        EngineGraph result = EngineGraph.of(graphBuilder);
-        Engine engine = new Engine(result);
+        Bpmn bpmn = Bpmn.of(resource);
+        Engine engine = bpmn.engine();
         engine.eval();
 
-        LayoutProcessor layout = new LayoutProcessor();
-        layout.process(tdefs, graphBuilder);
+        BufferedImage image = bpmn.draw();
+        ImageIO.write(image, "png", new File("./output_image.png"));
     }
 }
 

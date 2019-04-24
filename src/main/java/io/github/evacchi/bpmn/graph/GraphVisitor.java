@@ -1,9 +1,9 @@
 package io.github.evacchi.bpmn.graph;
 
-import io.github.evacchi.bpmn.graph.bpmn.EndEventNode;
-import io.github.evacchi.bpmn.graph.bpmn.ScriptTaskNode;
-import io.github.evacchi.bpmn.graph.bpmn.StartEventNode;
-import io.github.evacchi.bpmn.graph.bpmn.SubProcessNode;
+import io.github.evacchi.bpmn.graph.nodes.EndEventNode;
+import io.github.evacchi.bpmn.graph.nodes.ScriptTaskNode;
+import io.github.evacchi.bpmn.graph.nodes.StartEventNode;
+import io.github.evacchi.bpmn.graph.nodes.SubProcessNode;
 
 public interface GraphVisitor {
 

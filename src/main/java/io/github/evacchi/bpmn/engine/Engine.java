@@ -1,11 +1,11 @@
 package io.github.evacchi.bpmn.engine;
 
-import io.github.evacchi.bpmn.graph.bpmn.EndEventNode;
+import io.github.evacchi.bpmn.graph.nodes.EndEventNode;
 import io.github.evacchi.bpmn.graph.GraphVisitor;
 import io.github.evacchi.bpmn.graph.Node;
-import io.github.evacchi.bpmn.graph.bpmn.ScriptTaskNode;
-import io.github.evacchi.bpmn.graph.bpmn.StartEventNode;
-import io.github.evacchi.bpmn.graph.bpmn.SubProcessNode;
+import io.github.evacchi.bpmn.graph.nodes.ScriptTaskNode;
+import io.github.evacchi.bpmn.graph.nodes.StartEventNode;
+import io.github.evacchi.bpmn.graph.nodes.SubProcessNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

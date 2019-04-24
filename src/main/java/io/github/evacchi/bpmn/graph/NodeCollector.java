@@ -1,4 +1,4 @@
-package io.github.evacchi.bpmn.example;
+package io.github.evacchi.bpmn.graph;
 
 import java.util.List;
 
@@ -11,18 +11,17 @@ import io.github.evacchi.bpmn.TScriptTask;
 import io.github.evacchi.bpmn.TSequenceFlow;
 import io.github.evacchi.bpmn.TStartEvent;
 import io.github.evacchi.bpmn.TSubProcess;
-import io.github.evacchi.bpmn.graph.bpmn.EndEventNode;
+import io.github.evacchi.bpmn.graph.nodes.EndEventNode;
 import io.github.evacchi.bpmn.engine.EngineGraph;
-import io.github.evacchi.bpmn.graph.GraphBuilder;
-import io.github.evacchi.bpmn.graph.bpmn.ScriptTaskNode;
-import io.github.evacchi.bpmn.graph.bpmn.StartEventNode;
-import io.github.evacchi.bpmn.graph.bpmn.SubProcessNode;
+import io.github.evacchi.bpmn.graph.nodes.ScriptTaskNode;
+import io.github.evacchi.bpmn.graph.nodes.StartEventNode;
+import io.github.evacchi.bpmn.graph.nodes.SubProcessNode;
 
 public class NodeCollector extends BaseVisitor<Void, RuntimeException> {
 
-    final GraphBuilder nodes;
+    final Graph nodes;
 
-    public NodeCollector(GraphBuilder graphBuilder) {
+    public NodeCollector(Graph graphBuilder) {
         nodes = graphBuilder;
     }
 
@@ -31,7 +30,7 @@ public class NodeCollector extends BaseVisitor<Void, RuntimeException> {
     }
 
     public Void visit(TSubProcess p) {
-        GraphBuilder graphBuilder = new ProcessVisitor().subProcess(p);
+        Graph graphBuilder = GraphReader.subProcess(p);
         EngineGraph result = EngineGraph.of(graphBuilder);
         nodes.add(new SubProcessNode(p.getId(), result));
         return null;

@@ -1,4 +1,4 @@
-package io.github.evacchi.bpmn.example;
+package io.github.evacchi.bpmn.graph;
 
 import java.util.List;
 
@@ -7,13 +7,13 @@ import javax.xml.bind.JAXBElement;
 import io.github.evacchi.bpmn.BaseVisitor;
 import io.github.evacchi.bpmn.TFlowElement;
 import io.github.evacchi.bpmn.TSequenceFlow;
-import io.github.evacchi.bpmn.graph.GraphBuilder;
+import io.github.evacchi.bpmn.graph.Graph;
 
 public class EdgeCollector extends BaseVisitor<Void, RuntimeException> {
 
-    final GraphBuilder graphBuilder;
+    final Graph graphBuilder;
 
-    public EdgeCollector(GraphBuilder graphBuilder) {
+    public EdgeCollector(Graph graphBuilder) {
         this.graphBuilder = graphBuilder;
     }
 
@@ -24,7 +24,7 @@ public class EdgeCollector extends BaseVisitor<Void, RuntimeException> {
         return null;
     }
 
-    public GraphBuilder graphBuilder() {
+    public Graph graphBuilder() {
         return graphBuilder;
     }
 

@@ -16,12 +16,12 @@
   <process processType="Private" isExecutable="true" id="example-2" name="Minimal SubProcess">
 
     <!-- nodes -->
-    <startEvent id="_1" name="StartProcess"/>
+    <startEvent id="_1" name="StartProc"/>
     <subProcess id="_2" name="Hello">
       <!-- variables -->
       <property id="x" itemSubjectRef="_2-xItem"/>
       <!-- nodes -->
-      <startEvent id="_2-1" name="StartSubProcess"/>
+      <startEvent id="_2-1" name="StartSub"/>
       <scriptTask id="_2-2" name="Hello1">
         <script>System.out.println("x = " + x);</script>
       </scriptTask>
@@ -31,7 +31,7 @@
       <scriptTask id="_2-4" name="Hello3">
         <script>System.out.println("x = " + x);</script>
       </scriptTask>
-      <endEvent id="_2-5" name="EndSubProcess"/>
+      <endEvent id="_2-5" name="EndSub"/>
       <!-- connections -->
       <sequenceFlow id="_2-1-_2-2" sourceRef="_2-1" targetRef="_2-2"/>
       <sequenceFlow id="_2-2-_2-3" sourceRef="_2-2" targetRef="_2-3"/>
@@ -41,7 +41,7 @@
     <scriptTask id="_3" name="Goodbye">
       <script>System.out.println("Goodbye World");</script>
     </scriptTask>
-    <endEvent id="_4" name="EndProcess">
+    <endEvent id="_4" name="EndProc">
       <terminateEventDefinition/>
     </endEvent>
 

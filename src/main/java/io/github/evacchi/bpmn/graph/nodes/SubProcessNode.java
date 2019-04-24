@@ -1,8 +1,7 @@
-package io.github.evacchi.bpmn.draw;
+package io.github.evacchi.bpmn.graph.nodes;
 
 import io.github.evacchi.bpmn.engine.EngineGraph;
 import io.github.evacchi.bpmn.graph.GraphVisitor;
-import io.github.evacchi.bpmn.graph.SubGraph;
 
 public class SubProcessNode extends SubGraph {
 

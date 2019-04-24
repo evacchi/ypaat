@@ -10,9 +10,9 @@ import java.util.stream.Stream;
 
 import io.github.evacchi.bpmn.TSequenceFlow;
 import io.github.evacchi.bpmn.TStartEvent;
-import io.github.evacchi.bpmn.graph.bpmn.StartEventNode;
+import io.github.evacchi.bpmn.graph.nodes.StartEventNode;
 
-public class GraphBuilder {
+public class Graph {
 
     private Map<String, Node<?>> nodes = new HashMap<>();
     private List<Edge> edges = new ArrayList<>();
@@ -20,7 +20,7 @@ public class GraphBuilder {
     private String name;
     private StartEventNode start;
 
-    public GraphBuilder(String name) {
+    public Graph(String name) {
         this.name = name;
     }
 

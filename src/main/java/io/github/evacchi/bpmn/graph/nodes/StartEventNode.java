@@ -1,7 +1,6 @@
-package io.github.evacchi.bpmn.graph.bpmn;
+package io.github.evacchi.bpmn.graph.nodes;
 
 import io.github.evacchi.bpmn.TStartEvent;
-import io.github.evacchi.bpmn.graph.FlowNode;
 import io.github.evacchi.bpmn.graph.GraphVisitor;
 
 public class StartEventNode extends FlowNode<TStartEvent> {

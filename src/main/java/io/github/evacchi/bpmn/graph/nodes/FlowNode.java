@@ -1,6 +1,7 @@
-package io.github.evacchi.bpmn.graph;
+package io.github.evacchi.bpmn.graph.nodes;
 
 import io.github.evacchi.bpmn.TFlowElement;
+import io.github.evacchi.bpmn.graph.Node;
 
 public class FlowNode<T extends TFlowElement> extends Node<T> {
 

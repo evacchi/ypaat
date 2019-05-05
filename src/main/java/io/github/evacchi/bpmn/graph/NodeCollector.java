@@ -5,8 +5,11 @@ import java.util.List;
 import javax.xml.bind.JAXBElement;
 
 import io.github.evacchi.bpmn.BaseVisitor;
+import io.github.evacchi.bpmn.Font;
+import io.github.evacchi.bpmn.TDefinitions;
 import io.github.evacchi.bpmn.TEndEvent;
 import io.github.evacchi.bpmn.TFlowElement;
+import io.github.evacchi.bpmn.TRootElement;
 import io.github.evacchi.bpmn.TScriptTask;
 import io.github.evacchi.bpmn.TSequenceFlow;
 import io.github.evacchi.bpmn.TStartEvent;
@@ -19,9 +22,9 @@ import io.github.evacchi.bpmn.graph.nodes.SubProcessNode;
 
 public class NodeCollector extends BaseVisitor<Void, RuntimeException> {
 
-    final Graph nodes;
+    final GraphBuilder nodes;
 
-    public NodeCollector(Graph graphBuilder) {
+    public NodeCollector(GraphBuilder graphBuilder) {
         nodes = graphBuilder;
     }
 
@@ -29,8 +32,14 @@ public class NodeCollector extends BaseVisitor<Void, RuntimeException> {
         flowElement.forEach(el -> el.getValue().accept(this));
     }
 
+    @Override
+    public Void visit(TDefinitions tdefs) throws RuntimeException {
+        tdefs.getRootElement().stream().map(JAXBElement::getValue).forEach(this::visit);
+        return null;
+    }
+
     public Void visit(TSubProcess p) {
-        Graph graphBuilder = GraphReader.subProcess(p);
+        GraphBuilder graphBuilder = GraphReader.subProcess(p);
         EngineGraph result = EngineGraph.of(graphBuilder);
         nodes.add(new SubProcessNode(p.getId(), result));
         return null;
@@ -53,5 +62,9 @@ public class NodeCollector extends BaseVisitor<Void, RuntimeException> {
 
     public Void visit(TSequenceFlow seq) {
         return null;
+    }
+
+    public void visit(TRootElement tRootElement) {
+        tRootElement.accept(this);
     }
 }

@@ -1,7 +1,6 @@
 package io.github.evacchi.bpmn.graph;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 import javax.xml.bind.JAXBElement;
 
@@ -12,36 +11,25 @@ import io.github.evacchi.bpmn.TSubProcess;
 
 public class GraphReader {
 
-    public static GraphReader of(TDefinitions tdefs) {
-        return new GraphReader(findRootProcess(tdefs));
+    public static GraphBuilder read(TDefinitions tdefs) {
+        return read(findRootProcess(tdefs));
     }
 
-    private final TProcess rootProcess;
-
-    public GraphReader(TProcess rootProcess) {
-        this.rootProcess = rootProcess;
+    public static GraphBuilder read(TProcess root) {
+        return read(root.getName(), root.getFlowElement());
     }
 
-    public Graph read() {
-        return read(rootProcess);
+    public static GraphBuilder subProcess(TSubProcess root) {
+        return read(root.getName(), root.getFlowElement());
     }
 
-    public static Graph read(TProcess root) {
-        return read(root.getName(), root::getFlowElement);
-    }
-
-    public static Graph subProcess(TSubProcess root) {
-        return read(root.getName(), root::getFlowElement);
-    }
-
-    private static Graph read(String name, Supplier<List<JAXBElement<? extends TFlowElement>>> elementSupplier) {
-        List<JAXBElement<? extends TFlowElement>> elements = elementSupplier.get();
-        Graph graphBuilder = new Graph(name);
-        NodeCollector nodeCollector = new NodeCollector(graphBuilder);
+    private static GraphBuilder read(String name, List<JAXBElement<? extends TFlowElement>> elements) {
+        GraphBuilder graph = new GraphBuilder(name);
+        NodeCollector nodeCollector = new NodeCollector(graph);
         nodeCollector.visitFlowElements(elements);
-        EdgeCollector edgeCollector = new EdgeCollector(graphBuilder);
+        EdgeCollector edgeCollector = new EdgeCollector(graph);
         edgeCollector.visitFlowElements(elements);
-        return edgeCollector.graphBuilder();
+        return graph;
     }
 
     private static TProcess findRootProcess(TDefinitions tdefs) {

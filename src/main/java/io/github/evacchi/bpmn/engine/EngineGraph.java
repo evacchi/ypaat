@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.github.evacchi.bpmn.graph.Edge;
-import io.github.evacchi.bpmn.graph.Graph;
+import io.github.evacchi.bpmn.graph.GraphBuilder;
 import io.github.evacchi.bpmn.graph.Node;
 import io.github.evacchi.bpmn.graph.nodes.StartEventNode;
 
@@ -20,7 +20,7 @@ public class EngineGraph {
     private final Collection<? extends Node<?>> nodes;
     private final Collection<Edge> edges;
 
-    public static EngineGraph of(Graph graphBuilder) {
+    public static EngineGraph of(GraphBuilder graphBuilder) {
         Map<Node<?>, Collection<Node<?>>> outgoingEdges = new HashMap<>();
         List<Node<?>> pending = new ArrayList<>(graphBuilder.nodes());
         HashSet<Node<?>> done = new HashSet<>();

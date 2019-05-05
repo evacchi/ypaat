@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 import io.github.evacchi.bpmn.TDefinitions;
 import io.github.evacchi.bpmn.engine.EngineGraph;
-import io.github.evacchi.bpmn.graph.Graph;
+import io.github.evacchi.bpmn.graph.GraphBuilder;
 import io.github.evacchi.bpmn.graph.GraphReader;
 
 public class LayoutProcessor {
@@ -13,8 +13,7 @@ public class LayoutProcessor {
     private final EngineGraph graph;
 
     public static LayoutProcessor of(TDefinitions tdefs) {
-        GraphReader processVisitor = GraphReader.of(tdefs);
-        Graph graphBuilder = processVisitor.read();
+        GraphBuilder graphBuilder = GraphReader.read(tdefs);
         EngineGraph graph = EngineGraph.of(graphBuilder);
         return new LayoutProcessor(tdefs, graph);
     }

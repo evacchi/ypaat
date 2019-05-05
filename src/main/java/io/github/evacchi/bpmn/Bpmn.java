@@ -5,11 +5,11 @@ import java.io.InputStream;
 
 import javax.xml.bind.JAXB;
 
+import io.github.evacchi.bpmn.draw.LayoutProcessor;
 import io.github.evacchi.bpmn.engine.Engine;
 import io.github.evacchi.bpmn.engine.EngineGraph;
-import io.github.evacchi.bpmn.draw.LayoutProcessor;
+import io.github.evacchi.bpmn.graph.GraphBuilder;
 import io.github.evacchi.bpmn.graph.GraphReader;
-import io.github.evacchi.bpmn.graph.Graph;
 
 public class Bpmn {
 
@@ -27,8 +27,7 @@ public class Bpmn {
     }
 
     public Engine engine() {
-        GraphReader graphReader = GraphReader.of(tdefs);
-        Graph graph = graphReader.read();
+        GraphBuilder graph = GraphReader.read(tdefs);
         EngineGraph engineGraph = EngineGraph.of(graph);
         return new Engine(engineGraph);
     }

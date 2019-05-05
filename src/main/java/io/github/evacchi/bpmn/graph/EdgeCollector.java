@@ -7,13 +7,12 @@ import javax.xml.bind.JAXBElement;
 import io.github.evacchi.bpmn.BaseVisitor;
 import io.github.evacchi.bpmn.TFlowElement;
 import io.github.evacchi.bpmn.TSequenceFlow;
-import io.github.evacchi.bpmn.graph.Graph;
 
 public class EdgeCollector extends BaseVisitor<Void, RuntimeException> {
 
-    final Graph graphBuilder;
+    final GraphBuilder graphBuilder;
 
-    public EdgeCollector(Graph graphBuilder) {
+    public EdgeCollector(GraphBuilder graphBuilder) {
         this.graphBuilder = graphBuilder;
     }
 
@@ -22,10 +21,6 @@ public class EdgeCollector extends BaseVisitor<Void, RuntimeException> {
         TFlowElement right = (TFlowElement) seq.getTargetRef();
         graphBuilder.addEdge(seq.getId(), seq, left.getId(), right.getId());
         return null;
-    }
-
-    public Graph graphBuilder() {
-        return graphBuilder;
     }
 
     public void visitFlowElements(List<JAXBElement<? extends TFlowElement>> flowElement) {

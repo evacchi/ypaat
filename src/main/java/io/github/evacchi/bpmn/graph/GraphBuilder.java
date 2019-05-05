@@ -12,7 +12,7 @@ import io.github.evacchi.bpmn.TSequenceFlow;
 import io.github.evacchi.bpmn.TStartEvent;
 import io.github.evacchi.bpmn.graph.nodes.StartEventNode;
 
-public class Graph {
+public class GraphBuilder {
 
     private Map<String, Node<?>> nodes = new HashMap<>();
     private List<Edge> edges = new ArrayList<>();
@@ -20,7 +20,7 @@ public class Graph {
     private String name;
     private StartEventNode start;
 
-    public Graph(String name) {
+    public GraphBuilder(String name) {
         this.name = name;
     }
 
